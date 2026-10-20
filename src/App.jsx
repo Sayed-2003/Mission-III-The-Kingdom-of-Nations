@@ -12,10 +12,9 @@ import CountrySearch from "./components/CountrySearch.jsx";
 import CountryList from "./components/CountryList.jsx";
 
 const API_URL =
-  "https://api.restcountries.com/country/v5?limit=100&response_fields=names.common,capitals,region,codes.alpha_3,codes.alpha_2,flag.emoji";
-
+  import.meta.env.VITE_COUNTRIES_API_URL 
 const API_KEY =
-  import.meta.env.VITE_COUNTRIES_API_KEY || "rc_live_demo";
+  import.meta.env.VITE_COUNTRIES_API_KEY;
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -34,7 +33,7 @@ function App() {
 
         const response = await fetch(API_URL, {
           headers: {
-            Authorization: API_KEY,
+            Authorization: `Bearer ${API_KEY}`,
           },
         });
 
@@ -48,7 +47,7 @@ function App() {
           throw new Error(message);
         }
 
-        const data = result.data?.object;
+        const data = result.data?.objects;
 
         if (!Array.isArray(data)) {
           throw new Error(
@@ -99,7 +98,7 @@ function App() {
         }
       } finally {
         if (!ignore) {
-          setLoading(true);
+          setLoading(false);
         }
       }
     }
@@ -109,7 +108,7 @@ function App() {
     return () => {
       ignore = true;
     };
-  }, [countries]);
+  }, []);
 
   function handleSearch(event) {
     setSearchTerm(event.target.value);
@@ -128,7 +127,7 @@ function App() {
       .includes(searchTerm.trim().toLowerCase());
 
     const matchesRegion =
-      selectedRegion === "all" ||
+      selectedRegion === "All" ||
       country.region === selectedRegion;
 
     return matchesName && matchesRegion;

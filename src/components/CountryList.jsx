@@ -3,7 +3,7 @@ import { SearchX } from "lucide-react";
 import CountryCard from "./CountryCard.jsx";
 
 function CountryList({ countries }) {
-  if (!countries) {
+  if (countries.length === 0) {
     return (
       <div className="empty-state">
         <SearchX size={36} />
@@ -20,7 +20,7 @@ function CountryList({ countries }) {
     <div className="country-grid">
       {countries.map((country) => (
         <CountryCard
-          key={country.cca3}
+          key={country.cca3 || country.name?.common}
           country={country}
         />
       ))}

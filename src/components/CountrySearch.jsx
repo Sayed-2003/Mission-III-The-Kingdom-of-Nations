@@ -18,7 +18,7 @@ function CountrySearch({
         <input
           type="search"
           placeholder="Search for a country..."
-          value={selectedRegion}
+          value={searchTerm}
           onChange={onSearch}
           aria-label="Search countries by name"
         />
@@ -29,9 +29,7 @@ function CountrySearch({
 
         <select
           value={selectedRegion}
-          onChange={(event) =>
-            setSelectedRegion("All")
-          }
+          onChange={(event) => setSelectedRegion(event.target.value)}
           aria-label="Filter countries by region"
         >
           <option value="All">All Regions</option>

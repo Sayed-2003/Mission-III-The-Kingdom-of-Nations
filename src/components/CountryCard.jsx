@@ -12,7 +12,7 @@ function CountryCard({ country }) {
 
   const rawCapital = country.capital ?? country.capitals;
   const firstCapital = Array.isArray(rawCapital)
-    ? rawCapital
+    ? rawCapital[0]
     : rawCapital;
 
   const capital =
@@ -104,7 +104,7 @@ function CountryCard({ country }) {
 
           <span>
             <strong>Population:</strong>{" "}
-            {population.toFixed(2)}
+            {population.toLocaleString()}
           </span>
         </div>
       </div>
